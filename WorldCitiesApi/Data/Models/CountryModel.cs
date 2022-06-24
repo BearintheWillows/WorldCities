@@ -1,7 +1,13 @@
 namespace WorldCitiesApi.Data.Models;
 
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+[Table("Cities")]
+[Index(nameof(Name))]
+[Index(nameof(ISO2))]
+[Index( nameof( ISO3 ) )]
 public class CountryModel
 {
 
