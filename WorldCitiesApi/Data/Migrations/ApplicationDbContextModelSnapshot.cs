@@ -21,7 +21,7 @@ namespace WorldCitiesApi.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("WorldCitiesApi.Data.Models.CityModel", b =>
+            modelBuilder.Entity("WorldCitiesApi.Data.Models.City", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,7 +55,7 @@ namespace WorldCitiesApi.Data.Migrations
                     b.ToTable("Cities", (string)null);
                 });
 
-            modelBuilder.Entity("WorldCitiesApi.Data.Models.CountryModel", b =>
+            modelBuilder.Entity("WorldCitiesApi.Data.Models.Country", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,9 +86,9 @@ namespace WorldCitiesApi.Data.Migrations
                     b.ToTable("Countries", (string)null);
                 });
 
-            modelBuilder.Entity("WorldCitiesApi.Data.Models.CityModel", b =>
+            modelBuilder.Entity("WorldCitiesApi.Data.Models.City", b =>
                 {
-                    b.HasOne("WorldCitiesApi.Data.Models.CountryModel", "Country")
+                    b.HasOne("WorldCitiesApi.Data.Models.Country", "Country")
                         .WithMany("Cities")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -97,7 +97,7 @@ namespace WorldCitiesApi.Data.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("WorldCitiesApi.Data.Models.CountryModel", b =>
+            modelBuilder.Entity("WorldCitiesApi.Data.Models.Country", b =>
                 {
                     b.Navigation("Cities");
                 });

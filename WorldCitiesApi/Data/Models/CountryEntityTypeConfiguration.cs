@@ -1,13 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿namespace WorldCitiesApi.Data.Models;
 
-namespace WorldCitiesApi.Data.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class CountryEntityTypeConfiguration : IEntityTypeConfiguration<CountryModel>
-{
-    public void Configure( Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<CountryModel> builder )
-    {
-        builder.ToTable( "Countries" );
-        builder.HasKey( c => c.Id );
-        builder.Property( c => c.Id ).IsRequired();
-    }
+public class CountryEntityTypeConfiguration : IEntityTypeConfiguration<Country> {
+	public void Configure(EntityTypeBuilder<Country> builder) {
+		builder.ToTable( "Countries" );
+		builder.HasKey( c => c.Id );
+		builder.Property( c => c.Id ).IsRequired();
+	}
 }
