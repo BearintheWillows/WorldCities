@@ -10,6 +10,8 @@ import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CitiesComponent } from './cities/cities.component';
 import { AngularMaterialModule } from './angular-material.module';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { AngularMaterialModule } from './angular-material.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
