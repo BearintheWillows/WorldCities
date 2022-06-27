@@ -5,18 +5,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import {RouterModule} from "@angular/router";
-import {AppRoutingModule} from "./app-routing/app-routing.module";
+import { RouterModule } from "@angular/router";
+import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule} from "@angular/material/button";
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatIconModule} from "@angular/material/icon";
+import { CitiesComponent } from './cities/cities.component';
+import { AngularMaterialModule } from './angular-material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    CitiesComponent
   ],
   imports: [
     BrowserModule,
@@ -24,9 +24,7 @@ import {MatIconModule} from "@angular/material/icon";
     RouterModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule
+    AngularMaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

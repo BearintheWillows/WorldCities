@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9406a304-7606-47d7-b99d-6366f2f0dad9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.WorldCities/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.WorldCities/.idea/dictionaries/SJWillows.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/ProjectEvaluation/worldcities.metadata.v2" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/ProjectEvaluation/worldcities.metadata.v2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/ProjectEvaluation/worldcities.projects.v2" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/ProjectEvaluation/worldcities.projects.v2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/WorldCities/DesignTimeBuild/.dtbcache.v2" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/WorldCities/DesignTimeBuild/.dtbcache.v2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/WorldCities/FileContentIndex/4a23eafb-78f2-4d1a-8083-0e133294156d.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/WorldCities/FileContentIndex/6735b613-107c-4e06-929a-3efd79271967.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/WorldCities/FileContentIndex/9a8da0ec-aa88-4bf3-9491-284fea394ee0.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/WorldCities/FileContentIndex/ee8c7645-fc9b-49e2-bb24-4fd69dab9ba8.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/WorldCities/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/WorldCities/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WorldCitiesApi/Controllers/WeatherForecastController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WorldCitiesApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WorldCitiesApi/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WorldCitiesApi/WorldCitiesApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WorldCitiesApi/WorldCitiesApi.csproj" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2B8NOzLvDU78QhWGPXtCSSlQhCJ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/SJWillows/OneDrive/Desktop/WebDev/Packt/Projects/WorldCities"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+</project>
