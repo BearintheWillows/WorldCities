@@ -1,11 +1,14 @@
 <header>
   <mat-toolbar color="primary">
     <span>Cities of the World</span>
-    <button mat-icon-button [routerLink]="['/']">
+    <button [routerLink]="['/']" mat-icon-button>
       <mat-icon>home</mat-icon>
     </button>
-    <a mat-flat-button color="primary" [routerLink]="['/cities']">
+    <a [routerLink]="['/cities']" color="primary" mat-flat-button>
       Cities</a>
+    <a [routerLink]="['/countries']" color="primary" mat-flat-button>
+      Countries
+    </a>
 
   </mat-toolbar>
 </header>

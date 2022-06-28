@@ -1,0 +1,42 @@
+<h1>Countries</h1>
+<p>Here's a list of countries: feel free to play with it.</p>
+<p *ngIf="!countries"><em>Loading...</em></p>
+<mat-form-field [hidden]="!countries">
+  <input #filter (keyup)="loadData(filter.value)" matInput
+         placeholder="Filter by name (or part of it)...">
+</mat-form-field>
+<table (matSortChange)="loadData()" [dataSource]="countries"
+       [hidden]="!countries"
+       [matSortActive]="defaultSortColumn"
+       [matSortDirection]="defaultSortOrder" class="mat-elevation-z8"
+       mat-table
+       matSort>
+  <!-- Id Column -->
+  <ng-container matColumnDef="id">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
+    <td *matCellDef="let country" mat-cell> {{country.id}} </td>
+  </ng-container>
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header>Name</th>
+    <td *matCellDef="let country" mat-cell> {{country.name}} </td>
+  </ng-container>
+  <!-- ISO2 Column -->
+  <ng-container matColumnDef="iso2">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header>ISO 2</th>
+    <td *matCellDef="let country" mat-cell> {{country.iso2}} </td>
+  </ng-container>
+  <!-- ISO3 Column -->
+  <ng-container matColumnDef="iso3">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header>ISO 3</th>
+    <td *matCellDef="let country" mat-cell> {{country.iso3}} </td>
+  </ng-container>
+  <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+  <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+</table>
+<!-- Pagination directive -->
+<mat-paginator (page)="getData($event)"
+               [hidden]="!countries"
+               [pageSizeOptions]="[10, 20, 50]"
+               [pageSize]="10"
+               showFirstLastButtons></mat-paginator>
