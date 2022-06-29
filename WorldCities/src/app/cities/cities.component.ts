@@ -5,6 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {environment} from 'src/environments/environment';
 import {City} from './city';
 import {MatSort} from "@angular/material/sort";
+import {debounceTime, distinctUntilChanged, Subject} from "rxjs";
 
 @Component({
   selector: 'app-cities',
@@ -24,12 +25,24 @@ export class CitiesComponent implements OnInit {
   filterQuery?: string;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  filterTextChanged: Subject<string> = new Subject<string>();
 
   constructor(private http: HttpClient) {
   }
 
   ngOnInit() {
     this.loadData(); // load data with default filter
+  }
+
+  //debounce filter text changes
+  onFilterTextChanged(filterText: string) {
+    if(this.filterTextChanged.observers.length === 0) {
+      this.filterTextChanged.pipe(debounceTime(1000), distinctUntilChanged())
+        .subscribe(query => {
+          this.loadData(query);
+        });
+    }
+    this.filterTextChanged.next(filterText);
   }
 
 

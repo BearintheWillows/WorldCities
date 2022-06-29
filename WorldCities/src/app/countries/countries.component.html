@@ -1,8 +1,11 @@
 <h1>Countries</h1>
 <p>Here's a list of countries: feel free to play with it.</p>
 <p *ngIf="!countries"><em>Loading...</em></p>
+<button [routerLink]="['/country']" class="btn-add" color="primary" mat-flat-button>
+  Add a new Country
+</button>
 <mat-form-field [hidden]="!countries">
-  <input #filter (keyup)="loadData(filter.value)" matInput
+  <input #filter (keyup)="onFilterTextChanged(filter.value)" matInput
          placeholder="Filter by name (or part of it)...">
 </mat-form-field>
 <table (matSortChange)="loadData()" [dataSource]="countries"
@@ -19,7 +22,11 @@
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <th *matHeaderCellDef mat-header-cell mat-sort-header>Name</th>
-    <td *matCellDef="let country" mat-cell> {{country.name}} </td>
+    <td *matCellDef="let country" mat-cell>
+      <a [routerLink]="['/country', country.id]">
+        {{country.name}}
+      </a>
+    </td>
   </ng-container>
   <!-- ISO2 Column -->
   <ng-container matColumnDef="iso2">

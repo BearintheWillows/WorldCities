@@ -5,6 +5,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {environment} from "../../environments/environment";
+import {debounceTime, distinctUntilChanged, Subject} from "rxjs";
 
 
 @Component({ // create a new Component
@@ -25,12 +26,24 @@ export class CountriesComponent implements OnInit {
   filterQuery?: string;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  filterTextChanged: Subject<string> = new Subject<string>();
 
   constructor(private http: HttpClient) {
   }
 
   ngOnInit(): void {
     this.loadData(); // load data with default filter
+  }
+
+  //debounce filter text changes
+  onFilterTextChanged(filterText: string) {
+    if(this.filterTextChanged.observers.length === 0) {
+      this.filterTextChanged.pipe(debounceTime(1000), distinctUntilChanged())
+        .subscribe(query => {
+          this.loadData(query);
+        });
+    }
+    this.filterTextChanged.next(filterText);
   }
 
   loadData(query?: string) { // load data with filter

@@ -3,7 +3,7 @@
 <p *ngIf="!cities"><em>Loading...</em></p>
 <button *ngIf="cities" [routerLink]="['/city/']" class="btn-add" color="primary" mat-flat-button>Add City</button>
 <mat-form-field [hidden]="!cities">
-  <input #filter (keyup)="loadData(filter.value)" matInput
+  <input #filter (keyup)="onFilterTextChanged(filter.value)" matInput
          placeholder="Filter by name (or part of it)...">
 </mat-form-field>
 <table (matSortChange)="loadData()" [dataSource]="cities"
