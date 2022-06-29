@@ -2,6 +2,12 @@
   <h1>{{title}}</h1>
   <p *ngIf="this.id && !city"><em>Loading…</em></p>
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <p>
+      <mat-error *ngIf="form.invalid && form.hasError('isDupeCity')">
+        <strong>ERROR</strong>
+        A city with the name <i>name</i>, <i>lat</i>, <i>lon</i>, and <i>country</i> already exists.
+      </mat-error>
+    </p>
     <!-- Name -->
     <mat-form-field>
       <mat-label>Name:</mat-label>
@@ -42,7 +48,7 @@
       </mat-error>
     </mat-form-field>
 
-    <button  color="primary"
+    <button color="primary"
             mat-flat-button type="submit">
       {{this.id ? 'Save' : 'Create'}}
     </button>

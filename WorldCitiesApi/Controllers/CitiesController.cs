@@ -90,4 +90,12 @@ public class CitiesController : ControllerBase {
 	}
 
 	private bool CityExists(int id) => ( _context.Cities?.Any( e => e.Id == id ) ).GetValueOrDefault();
+
+	[HttpPost, Route( "IsDupeCity" )]
+	public bool IsDupeCity(City city) => _context.Cities.Any( c => c.Name == city.Name
+	                                                            && c.Lat == city.Lat
+	                                                            && c.Lon == city.Lon
+	                                                            && c.CountryId == city.CountryId
+	                                                            && c.Id != city.Id
+	);
 }

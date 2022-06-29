@@ -60,12 +60,13 @@ export class CityEditComponent implements OnInit {
 
       const url = environment.baseUrl + 'api/Cities/IsDupeCity';
 
-      return this.http.post<boolean>(url, city).pipe(map(result =>
-      { return (result ? {isDupeCity: true} : null); }));
+      return this.http.post<boolean>(url, city).pipe(map(result => {
+        return (result ? {isDupeCity: true} : null);
+      }));
+
+    }
 
   }
-
-
 
   loadData() {
     //Load countries
