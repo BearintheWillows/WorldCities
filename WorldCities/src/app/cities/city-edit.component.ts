@@ -6,13 +6,15 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../environments/environment";
 import {Country} from "../countries/country";
 import {map, Observable} from "rxjs";
+import {BaseFormComponent} from "../base-form.component";
 
 @Component({
   selector: 'app-city-edit',
   templateUrl: './city-edit.component.html',
   styleUrls: ['./city-edit.component.scss']
 })
-export class CityEditComponent implements OnInit {
+export class CityEditComponent
+  extends BaseFormComponent implements OnInit {
 
   // the view title
   title?: string;
@@ -36,6 +38,7 @@ export class CityEditComponent implements OnInit {
     private router: Router,
     private http: HttpClient
   ) {
+    super()
   }
 
   ngOnInit(): void {
