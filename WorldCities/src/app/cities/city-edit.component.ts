@@ -19,9 +19,6 @@ export class CityEditComponent
   // the view title
   title?: string;
 
-  // the form model
-  form!: FormGroup;
-
   // the city object to edit or create
   city?: City;
   /*the city object id, as received from the active route
@@ -44,8 +41,12 @@ export class CityEditComponent
   ngOnInit(): void {
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
-      lat: new FormControl('', Validators.required),
-      lon: new FormControl('', Validators.required),
+      lat: new FormControl('', [Validators.required,
+        Validators.pattern(/^-?\d+(\.\d{1,4})?$/)
+      ]),
+      lon: new FormControl('', [Validators.required,
+        Validators.pattern(/^-?\d+(\.\d{1,4})?$/)
+      ]),
       countryId: new FormControl('', Validators.required),
     }, null, this.isDupeCity());
 

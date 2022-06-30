@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, AsyncValidatorFn, FormBuilder, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {environment} from './../../environments/environment';
@@ -20,8 +20,6 @@ export class CountryEditComponent
   // the view title
   title?: string;
   // the form model
-  form!: FormGroup;
-  // the country object to edit or create
   country?: Country;
   // the country object id, as fetched from the active route:
   // It's NULL when we're adding a new country,

@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AbstractControl, FormGroup} from "@angular/forms";
 
 @Component({
   template: ''
 })
-export abstract class BaseFormComponent implements OnInit {
+export abstract class BaseFormComponent {
   //form model
   form!: FormGroup;
 
@@ -14,18 +14,19 @@ export abstract class BaseFormComponent implements OnInit {
   getErrors(
     control: AbstractControl,
     displayName: string,
+    customMessages: { [key: string]: string } | null = null
   ): string[] {
     let errors: string[] = [];
     Object.keys(control.errors || {}).forEach(key => {
       switch (key) {
         case 'required':
-          errors.push(`${displayName} is required`);
+          errors.push(`${displayName} ${customMessages?.[key] ?? 'is required'}`);
           break;
         case 'pattern':
-          errors.push(`${displayName} must be a valid name`);
+          errors.push(`${displayName} ${customMessages?.[key] ?? 'contains invalid charecters'}`);
           break;
         case 'isDupeField':
-          errors.push(`${displayName} is already in use`);
+          errors.push(`${displayName} ${customMessages?.[key] ?? 'already exists: Please choose another'}`);
           break;
         default:
           errors.push(`${displayName} is invalid`);
@@ -35,7 +36,5 @@ export abstract class BaseFormComponent implements OnInit {
     return errors;
   }
 
-  ngOnInit(): void {
-  }
 
 }
