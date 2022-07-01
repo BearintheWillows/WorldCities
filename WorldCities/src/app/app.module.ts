@@ -17,6 +17,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {CityEditComponent} from './cities/city-edit.component';
 import {MatSelectModule} from "@angular/material/select";
 import { CountryEditComponent } from './countries/country-edit.component';
+import {CityService} from "./cities/Services/city.services";
 
 @NgModule({
   declarations: [

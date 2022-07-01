@@ -6,6 +6,7 @@ import {environment} from 'src/environments/environment';
 import {City} from './city';
 import {MatSort} from "@angular/material/sort";
 import {debounceTime, distinctUntilChanged, Subject} from "rxjs";
+import {CityService} from "./Services/city.services";
 
 @Component({
   selector: 'app-cities',
@@ -27,7 +28,7 @@ export class CitiesComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   filterTextChanged: Subject<string> = new Subject<string>();
 
-  constructor(private http: HttpClient) {
+  constructor(private cityService: CityService) {
   }
 
   ngOnInit() {
@@ -56,26 +57,16 @@ export class CitiesComponent implements OnInit {
 
   // get data from server
   getData(event: PageEvent) {
-    var url = environment.baseUrl + 'api/Cities'; // base url
-    var params = new HttpParams() // create a new HttpParams
-      .set("pageIndex", event.pageIndex.toString()) // set the pageIndex
-      .set("pageSize", event.pageSize.toString()) // set the pageSize
-      .set("sortColumn", (this.sort) ? this.sort.active : this.defaultSortColumn) // set the sortColumn
-      .set("sortOrder", (this.sort) ? this.sort.direction : this.defaultSortOrder); // set the sortOrder
-    if(this.filterQuery) { // if filterQuery is not null
-      params = params // if there is a filter query, add it to the params
-        .set("filterColumn", this.defaultFilterColumn) // set the filterColumn
-        .set("filterQuery", this.filterQuery) // set the filterQuery
-    }
-
-    // get the data from the server
-    this.http.get<any>(url, {params})
+    var sortColumn = this.sort ? this.sort.active : this.defaultSortColumn;
+    var sortOrder = this.sort ? this.sort.direction : this.defaultSortOrder;
+    var filterColumn = this.filterQuery ? this.defaultFilterColumn : null;
+    var filterQuery = this.filterQuery ? this.filterQuery : null;
+    this.cityService.getData(event.pageIndex, event.pageSize, sortColumn, sortOrder, filterColumn, filterQuery)
       .subscribe(result => {
-        this.paginator.length = result.totalCount;
-        this.paginator.pageIndex = result.pageIndex;
-        this.paginator.pageSize = result.pageSize;
-        this.cities = new MatTableDataSource<City>(result.data);
+        this.cities = new MatTableDataSource(result.data); // set the data to the data source
+        this.paginator.length = result.totalCount; // set the total count to the paginator
+        this.paginator.pageIndex = result.pageIndex; // set the page index to the paginator
+        this.paginator.pageSize = result.pageSize; // set the page size to the paginator
       }, error => console.error(error));
   }
-
 }

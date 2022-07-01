@@ -6,6 +6,8 @@ import {MatSort} from "@angular/material/sort";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {environment} from "../../environments/environment";
 import {debounceTime, distinctUntilChanged, Subject} from "rxjs";
+import {CountryService} from "./Services/country.service";
+
 
 
 @Component({ // create a new Component
@@ -28,7 +30,7 @@ export class CountriesComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   filterTextChanged: Subject<string> = new Subject<string>();
 
-  constructor(private http: HttpClient) {
+  constructor(private countryService: CountryService) {
   }
 
   ngOnInit(): void {
@@ -55,26 +57,19 @@ export class CountriesComponent implements OnInit {
   }
 
   getData(event: PageEvent) {
-    const url = environment.baseUrl + 'api/Countries'; // base url
-    let params = new HttpParams() // create a new HttpParams
-      .set("pageIndex", event.pageIndex.toString()) // set the pageIndex
-      .set("pageSize", event.pageSize.toString()) // set the pageSize
-      .set("sortColumn", (this.sort) ? this.sort.active : this.defaultSortColumn) // set the sortColumn
-      .set("sortOrder", (this.sort) ? this.sort.direction : this.defaultSortOrder); // set the sortOrder
+    var sortColumn = this.sort ? this.sort.active : this.defaultSortColumn;
+    var sortOrder = this.sort ? this.sort.direction : this.defaultSortOrder;
+    var filterColumn = this.filterQuery ? this.defaultFilterColumn : null;
+    var filterQuery = this.filterQuery ? this.filterQuery : null;
 
-    if(this.filterQuery) {
-      params = params // if there is a filter query, add it to the params
-        .set("filterColumn", this.defaultFilterColumn) // set the filterColumn
-        .set("filterQuery", this.filterQuery) // set the filterQuery
-    }
-
-    this.http.get<any>(url, {params})
+    this.countryService.getData(event.pageIndex, event.pageSize, sortColumn, sortOrder, filterColumn, filterQuery)
       .subscribe(result => {
+        this.countries = new MatTableDataSource(result.data); // set the data
         this.paginator.length = result.totalCount;
         this.paginator.pageIndex = result.pageIndex;
         this.paginator.pageSize = result.pageSize;
-        this.countries = new MatTableDataSource<Country>(result.data);
-      }, error => console.error(error));
+    }, error => console.log(error));
+
   }
 
 }
