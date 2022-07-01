@@ -15,7 +15,7 @@ import {debounceTime, distinctUntilChanged, Subject} from "rxjs";
 
 export class CitiesComponent implements OnInit {
 
-  public displayedColumns: string[] = ['id', 'name', 'lat', 'lon'];
+  public displayedColumns: string[] = ['id', 'name', 'lat', 'lon', 'countryName']; // columns to display
   public cities!: MatTableDataSource<City>;
   defaultPageIndex: number = 0;
   defaultPageSize: number = 10;

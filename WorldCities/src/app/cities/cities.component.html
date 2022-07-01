@@ -34,6 +34,16 @@
     <th *matHeaderCellDef mat-header-cell mat-sort-header="lon">Longitude</th>
     <td *matCellDef="let city" mat-cell>{{city.lon}}</td>
   </ng-container>
+
+  <ng-container matColumnDef="countryName">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header="countryName">Country</th>
+    <td *matCellDef="let city" mat-cell>
+    <a [routerLink]="['/country', city.countryId]">
+      {{city.countryName}}
+    </a>
+    </td>
+  </ng-container>
+
   <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
   <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 </table>

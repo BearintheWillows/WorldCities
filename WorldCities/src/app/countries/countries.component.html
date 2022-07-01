@@ -28,16 +28,25 @@
       </a>
     </td>
   </ng-container>
+
   <!-- ISO2 Column -->
   <ng-container matColumnDef="iso2">
     <th *matHeaderCellDef mat-header-cell mat-sort-header>ISO 2</th>
     <td *matCellDef="let country" mat-cell> {{country.iso2}} </td>
   </ng-container>
+
   <!-- ISO3 Column -->
   <ng-container matColumnDef="iso3">
     <th *matHeaderCellDef mat-header-cell mat-sort-header>ISO 3</th>
     <td *matCellDef="let country" mat-cell> {{country.iso3}} </td>
   </ng-container>
+
+  <!-- Total Cities Column -->
+  <ng-container matColumnDef="totalCities">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header="totCities">Total Cities</th>
+    <td *matCellDef="let country" mat-cell> {{country.totalCities}} </td>
+  </ng-container>
+
   <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
   <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 </table>
@@ -47,3 +56,4 @@
                [pageSizeOptions]="[10, 20, 50]"
                [pageSize]="10"
                showFirstLastButtons></mat-paginator>
+
