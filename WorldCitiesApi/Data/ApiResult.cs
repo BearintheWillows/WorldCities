@@ -2,6 +2,7 @@
 
 using System.Linq.Dynamic.Core;
 using System.Reflection;
+using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
 
 public class ApiResult<T> {
@@ -63,7 +64,7 @@ public class ApiResult<T> {
 	///     and all the relevant paging/sorting/filtering navigation info.
 	/// </returns>
 	public static async Task<ApiResult<T>> CreateAsync(
-		IQueryable<T> source,
+		IQueryable<T>? source,
 		int           pageIndex,
 		int           pageSize,
 
@@ -90,8 +91,15 @@ public class ApiResult<T> {
 			source = source.OrderBy( $"{sortColumn} {sortOrder}" );
 		}
 
-		source = Queryable.Take( Queryable.Skip( source, pageIndex * pageSize ), pageSize );
-
+		source = source
+		        .Skip( pageIndex * pageSize )
+                .Take(pageSize) as IQueryable<T>;
+		#if DEBUG
+		// retrieve the sql query
+		var sql = source.ToParametrizedSql();
+		#endif
+		
+		
 		var data = await source.ToListAsync();
 
 		return new ApiResult<T>( data,
