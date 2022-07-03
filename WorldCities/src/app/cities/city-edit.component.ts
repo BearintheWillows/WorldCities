@@ -5,7 +5,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../environments/environment";
 import {Country} from "../countries/country";
-import {map, Observable, Subscription} from "rxjs";
+import {map, Observable, Subscription, takeUntil} from "rxjs";
 import {BaseFormComponent} from "../base-form.component";
 import {CityService} from "./Services/city.services";
 
@@ -34,7 +34,7 @@ export class CityEditComponent
   // Activity Log (for debugging)
   activityLog: string = "";
 
-  private subscription: Subscription = new Subscription();
+  private destroySubject = new Subject<void>();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -58,28 +58,35 @@ export class CityEditComponent
 
 
     //react to form changes
-    this.subscription.add(this.form.valueChanges.subscribe(() => {
+    this.form.valueChanges
+      .pipe(takeUntil(this.destroySubject))
+      .subscribe(() => {
       if(!this.form.dirty) {
         this.log("Form Model has been loaded");
       } else {
         this.log("Form updated by User")
       }
-    }));
+    });
 
     //React to changes in form.name Control
-    this.subscription.add(this.form.get("name")!.valueChanges.subscribe(() => {
+    this.form.get("name")!.valueChanges
+      .pipe(takeUntil(this.destroySubject))
+      .subscribe(() => {
       if (!this.form.dirty) {
       this.log("Name has been loaded with initial values");
     } else {
       this.log("Name updated by user");
     }
-    }));
+    });
 
     this.loadData();
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // emit a value with takeUntil notifier
+    this.destroySubject.next(true);
+    // Complete the subject
+    this.destroySubject.complete();
   }
 
   log(str: string) {
