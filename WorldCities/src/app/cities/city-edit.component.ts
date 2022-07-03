@@ -31,8 +31,6 @@ export class CityEditComponent
   // The countries array for select
   countries?: Observable<Country[]>;
 
-  // Activity Log (for debugging)
-  activityLog: string = "";
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -82,7 +80,7 @@ export class CityEditComponent
   }
 
   log(str: string) {
-    this.activityLog += "[" + new Date().toLocaleString() + "] " + str + "<br />";
+    console.log( "[" + new Date().toLocaleString() + "] " + str + "<br />");
   }
 
   isDupeCity(): AsyncValidatorFn {
