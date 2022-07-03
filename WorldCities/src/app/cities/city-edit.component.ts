@@ -5,7 +5,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../environments/environment";
 import {Country} from "../countries/country";
-import {map, Observable} from "rxjs";
+import {map, Observable, Subscription} from "rxjs";
 import {BaseFormComponent} from "../base-form.component";
 import {CityService} from "./Services/city.services";
 
@@ -34,6 +34,8 @@ export class CityEditComponent
   // Activity Log (for debugging)
   activityLog: string = "";
 
+  private subscription: Subscription = new Subscription();
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -44,35 +46,40 @@ export class CityEditComponent
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      name: new FormControl('', Validators.required),
-      lat: new FormControl('', [Validators.required,
+      name     : new FormControl('', Validators.required),
+      lat      : new FormControl('', [Validators.required,
         Validators.pattern(/^-?\d+(\.\d{1,4})?$/)
       ]),
-      lon: new FormControl('', [Validators.required,
+      lon      : new FormControl('', [Validators.required,
         Validators.pattern(/^-?\d+(\.\d{1,4})?$/)
       ]),
       countryId: new FormControl('', Validators.required),
     }, null, this.isDupeCity())
 
+
     //react to form changes
-    this.form.valueChanges.subscribe(() => {
+    this.subscription.add(this.form.valueChanges.subscribe(() => {
       if(!this.form.dirty) {
         this.log("Form Model has been loaded");
       } else {
         this.log("Form updated by User")
       }
-    });
+    }));
 
     //React to changes in form.name Control
-    this.form.get("name")!.valueChanges.subscribe(() => {
+    this.subscription.add(this.form.get("name")!.valueChanges.subscribe(() => {
       if (!this.form.dirty) {
       this.log("Name has been loaded with initial values");
     } else {
       this.log("Name updated by user");
     }
-    });
+    }));
 
     this.loadData();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   log(str: string) {
