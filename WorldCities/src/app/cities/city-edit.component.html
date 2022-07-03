@@ -40,10 +40,10 @@
     </mat-form-field>
 
     <!-- Country -->
-    <mat-form-field *ngIf="countries">
+    <mat-form-field *ngIf="countries | async as result">
       <mat-label>Select a Country...</mat-label>
       <mat-select formControlName="countryId" id="countryId">
-        <mat-option *ngFor="let country of countries" [value]="country.id">{{country.name}}</mat-option>
+        <mat-option *ngFor="let country of result" [value]="country.id">{{country.name}}</mat-option>
       </mat-select>
       <mat-error *ngFor="let error of getErrors(form.get('countryId')!, 'Country ID') ">
         {{error}}

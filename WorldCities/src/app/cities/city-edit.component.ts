@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, FormControl, FormGroup, Validators} from "@angular/forms";
 import {City} from "./city";
 import {HttpClient, HttpParams} from "@angular/common/http";
@@ -15,7 +15,7 @@ import {CityService} from "./Services/city.services";
   styleUrls: ['./city-edit.component.scss']
 })
 export class CityEditComponent
-  extends BaseFormComponent implements OnInit {
+  extends BaseFormComponent implements OnInit, OnDestroy {
 
   // the view title
   title?: string;
@@ -29,12 +29,10 @@ export class CityEditComponent
   id?: number;
 
   // The countries array for select
-  countries?: Country[];
+  countries?: Observable<Country[]>;
 
   // Activity Log (for debugging)
   activityLog: string = "";
-
-  private destroySubject = new Subject<void>();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -59,7 +57,6 @@ export class CityEditComponent
 
     //react to form changes
     this.form.valueChanges
-      .pipe(takeUntil(this.destroySubject))
       .subscribe(() => {
       if(!this.form.dirty) {
         this.log("Form Model has been loaded");
@@ -70,7 +67,6 @@ export class CityEditComponent
 
     //React to changes in form.name Control
     this.form.get("name")!.valueChanges
-      .pipe(takeUntil(this.destroySubject))
       .subscribe(() => {
       if (!this.form.dirty) {
       this.log("Name has been loaded with initial values");
@@ -83,10 +79,6 @@ export class CityEditComponent
   }
 
   ngOnDestroy(): void {
-    // emit a value with takeUntil notifier
-    this.destroySubject.next(true);
-    // Complete the subject
-    this.destroySubject.complete();
   }
 
   log(str: string) {
@@ -163,15 +155,13 @@ export class CityEditComponent
 
   loadCountries() {
     //Fet all countries from server
-    this.cityService.getCountries(
+    this.countries = this.cityService.getCountries(
       0,
       9999,
       "name",
       "asc",
       null,
       null
-    ).subscribe(result => {
-      this.countries = result.data;
-  }, error => console.error(error));
+    ).pipe(map(c => c.data))
 }
 }
