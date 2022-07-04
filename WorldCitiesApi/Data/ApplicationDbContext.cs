@@ -1,9 +1,11 @@
 ﻿namespace WorldCitiesApi.Data;
 
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using Models.Auth;
 
-public class ApplicationDbContext : DbContext {
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
 	public ApplicationDbContext() { }
 
 	public ApplicationDbContext(DbContextOptions options)

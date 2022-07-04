@@ -1,23 +1,34 @@
 namespace WorldCitiesAPI.Controllers;
 
 using System.Security;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using WorldCitiesApi.Data;
 using WorldCitiesApi.Data.Models;
+using WorldCitiesApi.Data.Models.Auth;
 
 [Route( "api/[controller]/[action]" ), ApiController]
 public class SeedController : ControllerBase {
-	private readonly ApplicationDbContext _context;
-	private readonly IWebHostEnvironment  _env;
+	private readonly ApplicationDbContext         _context;
+	private readonly IWebHostEnvironment          _env;
+	private readonly RoleManager<IdentityRole>    _roleManager;
+	private readonly UserManager<ApplicationUser> _userManager;
+	private readonly IConfiguration               _configuration;
 
 	public SeedController(
-		ApplicationDbContext context,
-		IWebHostEnvironment  env
+		ApplicationDbContext         context,
+		IWebHostEnvironment          env,
+		RoleManager<IdentityRole>    roleManager,
+		UserManager<ApplicationUser> userManager,
+		IConfiguration               configuration
 	) {
 		_context = context;
 		_env = env;
+		_roleManager = roleManager;
+		_userManager = userManager;
+		_configuration = configuration;
 	}
 
 	[HttpGet]
@@ -130,4 +141,13 @@ public class SeedController : ControllerBase {
 		if ( numberOfCitiesAdded > 0 ) await _context.SaveChangesAsync();
 		return new JsonResult( new { Cities = numberOfCitiesAdded, Countries = numberOfCountriesAdded } );
 	}
+	
+	// ...existing code...
+	[HttpGet]
+	public async Task<ActionResult> CreateDefaultUsers()
+	{
+		throw new NotImplementedException();
+	}
+// ...existing code...
+
 }
